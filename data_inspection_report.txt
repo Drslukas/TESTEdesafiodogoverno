@@ -1,0 +1,202 @@
+
+======================================================================
+treino_tp.nc  (186.7 MB)
+======================================================================
+  data_vars: ['tp']
+  coord `lat`: shape=(301,) dtype=float64
+    range=[-60.000, 15.000] ascending=True
+  coord `lon`: shape=(261,) dtype=float64
+    range=[-90.000, -25.000]
+  coord `time`: shape=(996,) dtype=datetime64[ns]
+    range=[1940-01-01 00:00:00, 2022-12-01 00:00:00] n=996
+  var `tp`: dims=('time', 'lat', 'lon') shape=(996, 301, 261) dtype=float32
+    attrs: units='mm/day' long_name='precipitacao observada no mes M'
+    min=0 max=170.2 mean=3.52 std=3.829 nan=0/78246756 (0.00%)
+
+======================================================================
+treino_tp_alvo.nc  (186.5 MB)
+======================================================================
+  data_vars: ['tp_alvo']
+  coord `lat`: shape=(301,) dtype=float64
+    range=[-60.000, 15.000] ascending=True
+  coord `lon`: shape=(261,) dtype=float64
+    range=[-90.000, -25.000]
+  coord `time`: shape=(996,) dtype=datetime64[ns]
+    range=[1940-01-01 00:00:00, 2022-12-01 00:00:00] n=996
+  var `tp_alvo`: dims=('time', 'lat', 'lon') shape=(996, 301, 261) dtype=float32
+    attrs: units='mm/day' long_name='ALVO: precipitacao de M+1 (NaN no ultimo mes)'
+    min=0 max=170.2 mean=3.52 std=3.829 nan=78561/78246756 (0.10%)
+    time steps fully NaN: 1 (indices: [995])
+
+======================================================================
+treino_t2.nc  (176.0 MB)
+======================================================================
+  data_vars: ['t2']
+  coord `lat`: shape=(301,) dtype=float64
+    range=[-60.000, 15.000] ascending=True
+  coord `lon`: shape=(261,) dtype=float64
+    range=[-90.000, -25.000]
+  coord `time`: shape=(996,) dtype=datetime64[ns]
+    range=[1940-01-01 00:00:00, 2022-12-01 00:00:00] n=996
+  var `t2`: dims=('time', 'lat', 'lon') shape=(996, 301, 261) dtype=float32
+    min=252.8 max=308.4 mean=290.9 std=8.616 nan=0/78246756 (0.00%)
+
+======================================================================
+treino_cloud_cover.nc  (190.6 MB)
+======================================================================
+  data_vars: ['cloud_cover']
+  coord `lat`: shape=(301,) dtype=float64
+    range=[-60.000, 15.000] ascending=True
+  coord `lon`: shape=(261,) dtype=float64
+    range=[-90.000, -25.000]
+  coord `time`: shape=(996,) dtype=datetime64[ns]
+    range=[1940-01-01 00:00:00, 2022-12-01 00:00:00] n=996
+  var `cloud_cover`: dims=('time', 'lat', 'lon') shape=(996, 301, 261) dtype=float32
+    min=1.526e-05 max=0.9979 mean=0.6526 std=0.1813 nan=0/78246756 (0.00%)
+
+======================================================================
+treino_surface_pressure.nc  (160.2 MB)
+======================================================================
+  data_vars: ['surface_pressure']
+  coord `lat`: shape=(301,) dtype=float64
+    range=[-60.000, 15.000] ascending=True
+  coord `lon`: shape=(261,) dtype=float64
+    range=[-90.000, -25.000]
+  coord `time`: shape=(996,) dtype=datetime64[ns]
+    range=[1940-01-01 00:00:00, 2022-12-01 00:00:00] n=996
+  var `surface_pressure`: dims=('time', 'lat', 'lon') shape=(996, 301, 261) dtype=float32
+    min=5.425e+04 max=1.031e+05 mean=9.915e+04 std=5678 nan=0/78246756 (0.00%)
+
+======================================================================
+treino_shum_850.nc  (175.7 MB)
+======================================================================
+  data_vars: ['shum_850']
+  coord `lat`: shape=(301,) dtype=float64
+    range=[-60.000, 15.000] ascending=True
+  coord `lon`: shape=(261,) dtype=float64
+    range=[-90.000, -25.000]
+  coord `time`: shape=(996,) dtype=datetime64[ns]
+    range=[1940-01-01 00:00:00, 2022-12-01 00:00:00] n=996
+  var `shum_850`: dims=('time', 'lat', 'lon') shape=(996, 301, 261) dtype=float32
+    min=0.0003706 max=0.01569 mean=0.006899 std=0.003847 nan=0/78246756 (0.00%)
+
+======================================================================
+treino_rel_hum_850.nc  (180.4 MB)
+======================================================================
+  data_vars: ['rel_hum_850']
+  coord `lat`: shape=(301,) dtype=float64
+    range=[-60.000, 15.000] ascending=True
+  coord `lon`: shape=(261,) dtype=float64
+    range=[-90.000, -25.000]
+  coord `time`: shape=(996,) dtype=datetime64[ns]
+    range=[1940-01-01 00:00:00, 2022-12-01 00:00:00] n=996
+  var `rel_hum_850`: dims=('time', 'lat', 'lon') shape=(996, 301, 261) dtype=float32
+    min=1.62 max=101.6 mean=66.11 std=16.56 nan=0/78246756 (0.00%)
+
+======================================================================
+treino_temperature_850.nc  (172.5 MB)
+======================================================================
+  data_vars: ['temperature_850']
+  coord `lat`: shape=(301,) dtype=float64
+    range=[-60.000, 15.000] ascending=True
+  coord `lon`: shape=(261,) dtype=float64
+    range=[-90.000, -25.000]
+  coord `time`: shape=(996,) dtype=datetime64[ns]
+    range=[1940-01-01 00:00:00, 2022-12-01 00:00:00] n=996
+  var `temperature_850`: dims=('time', 'lat', 'lon') shape=(996, 301, 261) dtype=float32
+    min=254 max=299.6 mean=283.9 std=8.283 nan=0/78246756 (0.00%)
+
+======================================================================
+treino_geopotential_850.nc  (159.7 MB)
+======================================================================
+  data_vars: ['geopotential_850']
+  coord `lat`: shape=(301,) dtype=float64
+    range=[-60.000, 15.000] ascending=True
+  coord `lon`: shape=(261,) dtype=float64
+    range=[-90.000, -25.000]
+  coord `time`: shape=(996,) dtype=datetime64[ns]
+    range=[1940-01-01 00:00:00, 2022-12-01 00:00:00] n=996
+  var `geopotential_850`: dims=('time', 'lat', 'lon') shape=(996, 301, 261) dtype=float32
+    min=1.039e+04 max=1.573e+04 mean=1.441e+04 std=825.9 nan=0/78246756 (0.00%)
+
+======================================================================
+treino_u_850.nc  (188.5 MB)
+======================================================================
+  data_vars: ['u_850']
+  coord `lat`: shape=(301,) dtype=float64
+    range=[-60.000, 15.000] ascending=True
+  coord `lon`: shape=(261,) dtype=float64
+    range=[-90.000, -25.000]
+  coord `time`: shape=(996,) dtype=datetime64[ns]
+    range=[1940-01-01 00:00:00, 2022-12-01 00:00:00] n=996
+  var `u_850`: dims=('time', 'lat', 'lon') shape=(996, 301, 261) dtype=float32
+    min=-19.7 max=23.18 mean=1.136 std=6.55 nan=0/78246756 (0.00%)
+
+======================================================================
+treino_v_850.nc  (197.4 MB)
+======================================================================
+  data_vars: ['v_850']
+  coord `lat`: shape=(301,) dtype=float64
+    range=[-60.000, 15.000] ascending=True
+  coord `lon`: shape=(261,) dtype=float64
+    range=[-90.000, -25.000]
+  coord `time`: shape=(996,) dtype=datetime64[ns]
+    range=[1940-01-01 00:00:00, 2022-12-01 00:00:00] n=996
+  var `v_850`: dims=('time', 'lat', 'lon') shape=(996, 301, 261) dtype=float32
+    min=-16.24 max=12.48 mean=-0.1974 std=2.415 nan=0/78246756 (0.00%)
+
+======================================================================
+teste_features.nc  (39.1 MB)
+======================================================================
+  data_vars: ['t2', 'cloud_cover', 'shum_850', 'surface_pressure', 'u_850', 'v_850', 'temperature_850', 'rel_hum_850', 'geopotential_850', 'tp_alvo', 'tp_ultima_obs']
+  coord `lat`: shape=(301,) dtype=float64
+    range=[-60.000, 15.000] ascending=True
+  coord `lon`: shape=(261,) dtype=float64
+    range=[-90.000, -25.000]
+  coord `time`: shape=(24,) dtype=datetime64[ns]
+    range=[2023-01-01 00:00:00, 2024-12-01 00:00:00] n=24
+  coord `time_origem` (aux): shape=(24,) dtype=datetime64[ns]
+    range=[2022-12-01 00:00:00, 2024-11-01 00:00:00]
+  coord `lag_meses` (aux): shape=(24,) dtype=int16
+    range=[1, 24] unique=24
+  var `t2`: dims=('time', 'lat', 'lon') shape=(24, 301, 261) dtype=float32
+    min=257.5 max=307.3 mean=291.7 std=8.907 nan=0/1885464 (0.00%)
+  var `cloud_cover`: dims=('time', 'lat', 'lon') shape=(24, 301, 261) dtype=float32
+    min=0.0004247 max=0.9899 mean=0.6307 std=0.1813 nan=0/1885464 (0.00%)
+  var `shum_850`: dims=('time', 'lat', 'lon') shape=(24, 301, 261) dtype=float32
+    min=0.0004963 max=0.01516 mean=0.007079 std=0.003998 nan=0/1885464 (0.00%)
+  var `surface_pressure`: dims=('time', 'lat', 'lon') shape=(24, 301, 261) dtype=float32
+    min=5.459e+04 max=1.028e+05 mean=9.916e+04 std=5659 nan=0/1885464 (0.00%)
+  var `u_850`: dims=('time', 'lat', 'lon') shape=(24, 301, 261) dtype=float32
+    min=-17.8 max=23.21 mean=1.401 std=6.736 nan=0/1885464 (0.00%)
+  var `v_850`: dims=('time', 'lat', 'lon') shape=(24, 301, 261) dtype=float32
+    min=-14.5 max=11.07 mean=-0.2248 std=2.395 nan=0/1885464 (0.00%)
+  var `temperature_850`: dims=('time', 'lat', 'lon') shape=(24, 301, 261) dtype=float32
+    min=257.8 max=298.9 mean=284.6 std=8.563 nan=0/1885464 (0.00%)
+  var `rel_hum_850`: dims=('time', 'lat', 'lon') shape=(24, 301, 261) dtype=float32
+    min=2.815 max=99.35 mean=64.6 std=16.72 nan=0/1885464 (0.00%)
+  var `geopotential_850`: dims=('time', 'lat', 'lon') shape=(24, 301, 261) dtype=float32
+    min=1.056e+04 max=1.56e+04 mean=1.445e+04 std=871.4 nan=0/1885464 (0.00%)
+  var `tp_alvo`: dims=('time', 'lat', 'lon') shape=(24, 301, 261) dtype=float32
+    attrs: units='mm/day' long_name='ALVO - a prever (NaN de proposito)'
+    all-NaN
+    time steps fully NaN: 24 (indices: [0, 1, 2, 3, 4]...)
+  var `tp_ultima_obs`: dims=('time', 'lat', 'lon') shape=(24, 301, 261) dtype=float32
+    attrs: units='mm/day' long_name='precipitacao de 2022-12, ultima observada antes do teste'
+    min=0 max=67.42 mean=3.521 std=3.66 nan=0/1885464 (0.00%)
+
+======================================================================
+sample_submission.csv  (48.1 MB)
+======================================================================
+  shape=(1885464, 2) columns=['id', 'tp_mm_day']
+  dtypes:
+id               str
+tp_mm_day    float64
+  head:
+                   id  tp_mm_day
+2023_01_-60.00_-90.00        0.0
+2023_01_-60.00_-89.75        0.0
+2023_01_-60.00_-89.50        0.0
+  id years=['2023', '2024'] months=['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+  tp_mm_day: unique values=[0.] (placeholder check)
+  duplicated ids: 0

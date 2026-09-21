@@ -1,0 +1,14 @@
+# Python / Cache
+__pycache__/
+*.pyc
+
+# Heavy data files & NC formats
+*.nc
+data/
+
+# Heavy outputs / submissions
+outputs/*.csv
+!outputs/figures/
+
+# Graphify / temp tools output
+graphify-out/
