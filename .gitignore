@@ -8,7 +8,12 @@ data/
 
 # Heavy outputs / submissions
 outputs/*.csv
+outputs/*.parquet
+outputs/*.txt
 !outputs/figures/
+
+# Python virtualenv
+.venv/
 
 # Graphify / temp tools output
 graphify-out/

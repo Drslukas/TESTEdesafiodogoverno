@@ -1,0 +1,23 @@
+{
+  "params": {
+    "objective": "regression",
+    "metric": "rmse",
+    "max_bin": 127,
+    "num_leaves": 63,
+    "learning_rate": 0.03,
+    "min_data_in_leaf": 100,
+    "feature_fraction": 0.7,
+    "bagging_fraction": 0.7,
+    "bagging_freq": 1
+  },
+  "scenario_b_el_nino_proxy": {
+    "rmse": 1.9379,
+    "best_iteration": 3793,
+    "climatology_rmse": 2.1206
+  },
+  "scenario_a_la_nina_heavy": {
+    "rmse": 1.8773,
+    "best_iteration": 2763,
+    "climatology_rmse": 1.8666
+  }
+}
