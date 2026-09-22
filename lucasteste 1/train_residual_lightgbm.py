@@ -64,7 +64,7 @@ def _clim_context(field: np.ndarray) -> dict[str, np.ndarray]:
     }
 
 
-def build_train_table():
+def build_train_table(lag_aware: bool = False, circulation: bool = False):
     tp_ds = xr.open_dataset(DATA_DIR / "treino_tp.nc")
     lat = tp_ds["lat"].values
     lon = tp_ds["lon"].values
@@ -98,6 +98,12 @@ def build_train_table():
     lon_flat = lon_grid.reshape(-1).astype("float32")
     month_sin = np.sin(2 * np.pi * target_month / 12).astype("float32")
     month_cos = np.cos(2 * np.pi * target_month / 12).astype("float32")
+    # O teste mantém a última chuva observada congelada. Para o modelo não
+    # depender indevidamente de chuva fresca, sorteamos um atraso mensal entre
+    # 1 e 24 meses durante o treino. O atraso é igual em toda a grade do mês.
+    rng = np.random.default_rng(2026)
+    lag_per_month = rng.integers(1, np.minimum(24, np.arange(n_months) + 1) + 1).astype("float32")
+    tp_source = np.arange(n_months) - (lag_per_month.astype("int16") - 1)
 
     cols = {
         "lat": np.tile(lat_flat, n_months),
@@ -112,14 +118,20 @@ def build_train_table():
     for key, arr in context.items():
         cols[key] = np.concatenate([arr[int(m) - 1].reshape(-1) for m in target_month])
     for name, arr in arrays.items():
-        cols[name] = arr.reshape(-1)
+        cols[name] = (arr[tp_source] if name == "tp" and lag_aware else arr).reshape(-1)
+    if circulation:
+        cols["moisture_flux_u"] = (arrays["u_850"] * arrays["shum_850"]).reshape(-1)
+        cols["moisture_flux_v"] = (arrays["v_850"] * arrays["shum_850"]).reshape(-1)
+        cols["wind_speed_850"] = np.hypot(arrays["u_850"], arrays["v_850"]).reshape(-1)
+    if lag_aware:
+        cols["lag_meses"] = np.repeat(lag_per_month, n_points)
     cols["target"] = residual.reshape(-1)
     df = pd.DataFrame(cols).replace([np.inf, -np.inf], np.nan).dropna().reset_index(drop=True)
     print(f"Tabela pronta: {len(df):,} linhas; iniciando treinamento...", flush=True)
     return df, clim, lat_s, lon_s
 
 
-def build_test_table(clim, lat_s, lon_s):
+def build_test_table(clim, lat_s, lon_s, lag_aware: bool = False, circulation: bool = False):
     ds = xr.open_dataset(DATA_DIR / "teste_features.nc")
     lat = ds["lat"].values
     lon = ds["lon"].values
@@ -161,6 +173,12 @@ def build_test_table(clim, lat_s, lon_s):
         if name == "tp":
             continue
         cols[name] = ds[name].values.reshape(-1).astype("float32")
+    if circulation:
+        cols["moisture_flux_u"] = cols["u_850"] * cols["shum_850"]
+        cols["moisture_flux_v"] = cols["v_850"] * cols["shum_850"]
+        cols["wind_speed_850"] = np.hypot(cols["u_850"], cols["v_850"])
+    if lag_aware:
+        cols["lag_meses"] = np.repeat(np.arange(1, n_months + 1, dtype="float32"), n_points)
     ds.close()
     lengths = {name: len(values) for name, values in cols.items()}
     if any(length != n_months * n_points for length in lengths.values()):
@@ -176,13 +194,18 @@ def build_test_table(clim, lat_s, lon_s):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--predict-only", action="store_true", help="Reutiliza o modelo salvo sem treinar novamente")
+    parser.add_argument("--lag-aware", action="store_true", help="Simula tp congelada por 1 a 24 meses")
+    parser.add_argument("--circulation", action="store_true", help="Adiciona transporte de umidade e vento em 850 hPa")
+    parser.add_argument("--no-submit", action="store_true", help="Treina e salva o modelo, sem gerar CSV")
     args = parser.parse_args()
+    suffix = "lagaware_circulation" if args.lag_aware and args.circulation else ("lagaware" if args.lag_aware else "base")
+    model_path = OUT_DIR / f"lgb_residual_{suffix}_model.txt"
     if args.predict_only:
-        model = lgb.Booster(model_file=str(OUT_DIR / "lgb_residual_model.txt"))
+        model = lgb.Booster(model_file=str(model_path))
         print("Modelo salvo carregado; gerando CSV sem novo treinamento...", flush=True)
-        write_submission(model, model.feature_name(), model.current_iteration())
+        write_submission(model, model.feature_name(), model.current_iteration(), args.lag_aware, args.circulation)
         return
-    df, clim, lat_s, lon_s = build_train_table()
+    df, clim, lat_s, lon_s = build_train_table(args.lag_aware, args.circulation)
     features = [c for c in df.columns if c != "target"]
     # O último bloco cronológico serve apenas para escolher uma iteração segura.
     # O ajuste final abaixo usa todos os meses e o número de árvores selecionado.
@@ -201,16 +224,19 @@ def main():
     # Reajusta no histórico completo com a iteração escolhida.
     full_set = lgb.Dataset(df[features], label=df["target"])
     model = lgb.train(params, full_set, num_boost_round=best)
-    model.save_model(str(OUT_DIR / "lgb_residual_model.txt"))
-    print("Modelo final salvo; montando previsões de teste...", flush=True)
+    model.save_model(str(model_path))
+    print(f"Modelo final salvo em {model_path.name}.", flush=True)
+    if args.no_submit:
+        return
+    print("Montando previsões de teste...", flush=True)
     del df, train_set, valid_set, full_set
     gc.collect()
 
-    write_submission(model, features, best)
+    write_submission(model, features, best, args.lag_aware, args.circulation)
 
 
-def write_submission(model, features, best):
-    test = build_test_table(None, None, None)
+def write_submission(model, features, best, lag_aware: bool = False, circulation: bool = False):
+    test = build_test_table(None, None, None, lag_aware, circulation)
     missing = [c for c in features if c not in test.columns]
     if missing:
         raise ValueError(f"Features ausentes no teste: {missing}")

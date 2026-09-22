@@ -1,0 +1,6 @@
+experiment,model,features,stride,validation_strategy,training_time,notes,rmse_fold1,rmse_fold2,rmse_fold3,rmse_fold4,rmse_mean,rmse_std,rmse_pooled,folds_completed
+E00,LightGBM,baseline,4,expanding window; tp frozen; atmosphere t-1,1279.8995049999867,Partial spatial grid. No Kaggle submission.,,1.8839717350739227,,1.842229190324625,1.8494932614498845,0.02627772232397878,1.8516232729272217,7
+E00,LightGBM,baseline,8,expanding window; tp frozen; atmosphere t-1,844.3200806000059,Partial spatial grid. No Kaggle submission.,1.966981030295461,1.8606528806078215,1.8050973537386912,1.7701605174982105,1.8618356750388774,0.05259145626988856,1.8549164540824643,17
+E01,LightGBM,clim_stats,8,expanding window; tp frozen; atmosphere t-1,35.90591180000047,Partial spatial grid. No Kaggle submission.,,1.8623496618130202,,,1.8623496618130202,0.0,1.8623496618130202,1
+E02,LightGBM,anchor_history,8,expanding window; tp frozen; atmosphere t-1,39.08387839999705,Partial spatial grid. No Kaggle submission.,,1.8624331672710777,,,1.8624331672710777,0.0,1.8624331672710777,1
+E03,Ridge,anchor_history,8,expanding window; tp frozen; atmosphere t-1,3.4329327999985253,Partial spatial grid. No Kaggle submission.,,1.9222947695030461,,,1.9222947695030461,0.0,1.9222947695030461,1
