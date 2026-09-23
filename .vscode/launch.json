@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Validar modelo de precipitacao",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/pipeline.py",
+      "args": ["validate"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    }
+  ]
+}
